@@ -50,3 +50,7 @@ metrics:
     type: count_distinct
     sql: ${TABLE}.customer_id
     description: Number of distinct customers who ordered
+  avg_shipping_cost:
+    type: average
+    sql: ${TABLE}.shipping_cost
+    description: Average shipping cost per order
