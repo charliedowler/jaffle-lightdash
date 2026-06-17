@@ -1,0 +1,47 @@
+type: model
+name: customers
+label: Customers
+description: "Jaffle shop customers, one row per customer."
+sql_from: 'jaffle.customers'
+
+dimensions:
+  - name: customer_id
+    sql: ${TABLE}.customer_id
+    type: number
+  - name: first_name
+    sql: ${TABLE}.first_name
+    type: string
+  - name: last_name
+    sql: ${TABLE}.last_name
+    type: string
+  - name: age
+    sql: ${TABLE}.age
+    type: number
+  - name: created
+    sql: ${TABLE}.created
+    type: timestamp
+    time_intervals:
+      - DAY
+      - WEEK
+      - MONTH
+      - YEAR
+  - name: first_order
+    sql: ${TABLE}.first_order
+    type: date
+  - name: number_of_orders
+    sql: ${TABLE}.number_of_orders
+    type: number
+
+metrics:
+  customer_count:
+    type: count_distinct
+    sql: ${TABLE}.customer_id
+    description: Total number of customers
+  total_lifetime_value:
+    type: sum
+    sql: ${TABLE}.customer_lifetime_value
+    description: Sum of customer lifetime value
+  average_age:
+    type: average
+    sql: ${TABLE}.age
+    description: Average customer age

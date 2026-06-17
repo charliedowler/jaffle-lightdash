@@ -1,0 +1,26 @@
+type: model
+name: payments
+label: Payments
+description: "Jaffle shop payments, one row per payment."
+sql_from: 'jaffle.payments'
+
+dimensions:
+  - name: payment_id
+    sql: ${TABLE}.payment_id
+    type: number
+  - name: order_id
+    sql: ${TABLE}.order_id
+    type: number
+  - name: payment_method
+    sql: ${TABLE}.payment_method
+    type: string
+
+metrics:
+  payment_count:
+    type: count_distinct
+    sql: ${TABLE}.payment_id
+    description: Total number of payments
+  total_amount:
+    type: sum
+    sql: ${TABLE}.amount
+    description: Total payment amount

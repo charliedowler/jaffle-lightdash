@@ -1,0 +1,52 @@
+type: model
+name: orders
+label: Orders
+description: "Jaffle shop orders, one row per order."
+sql_from: 'jaffle.orders'
+
+dimensions:
+  - name: order_id
+    sql: ${TABLE}.order_id
+    type: number
+  - name: customer_id
+    sql: ${TABLE}.customer_id
+    type: number
+  - name: status
+    sql: ${TABLE}.status
+    type: string
+    description: "Order status: placed, shipped, completed, return_pending, returned."
+  - name: order_source
+    sql: ${TABLE}.order_source
+    type: string
+  - name: shipping_method
+    sql: ${TABLE}.shipping_method
+    type: string
+  - name: is_completed
+    sql: ${TABLE}.is_completed
+    type: boolean
+  - name: order_date
+    sql: ${TABLE}.order_date
+    type: date
+    time_intervals:
+      - DAY
+      - WEEK
+      - MONTH
+      - YEAR
+
+metrics:
+  order_count:
+    type: count_distinct
+    sql: ${TABLE}.order_id
+    description: Total number of unique orders
+  total_revenue:
+    type: sum
+    sql: ${TABLE}.amount
+    description: Total order revenue
+  average_order_value:
+    type: average
+    sql: ${TABLE}.amount
+    description: Average revenue per order
+  unique_customers:
+    type: count_distinct
+    sql: ${TABLE}.customer_id
+    description: Number of distinct customers who ordered
