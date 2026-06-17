@@ -50,3 +50,7 @@ metrics:
     type: count_distinct
     sql: ${TABLE}.customer_id
     description: Number of distinct customers who ordered
+  gross_revenue:
+    type: sum
+    sql: ${TABLE}.amount
+    description: Gross revenue across all orders
